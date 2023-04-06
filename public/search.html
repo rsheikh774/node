@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Search Results</title>
+    <style>
+        /* Style the search form */
+        form {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+        
+        label {
+          font-weight: bold;
+        }
+        
+        input[type="text"] {
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+          border: 1px solid #ccc;
+        }
+        
+        button[type="submit"] {
+          padding: 0.5rem 1rem;
+          background-color: #0077cc;
+          color: #fff;
+          border: none;
+          border-radius: 0.25rem;
+          cursor: pointer;
+        }
+        
+        /* Style the search results */
+        #search-results {
+          max-width: 40rem;
+          margin: 0 auto;
+        }
+        
+        h2 {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+        
+        p {
+          font-size: 1.25rem;
+          margin-bottom: 0.5rem;
+        }
+      </style>
+  </head>
+  <body>
+    
+    <form id="search-form">
+      <label for="name">Search by name:</label>
+      <input type="text" id="name" name="name">
+      <button type="submit">Search</button>
+    </form>
+    
+    <div id="search-results"></div>
+    <script>
+        
+const users = [
+  {
+    name: 'rehan shekh',
+    address: 'Ashoka Garden, Bhopal',
+    email: 'rehanshekh123@gmail.com',
+    phone: '7869628175'
+  },
+  {
+    name: 'mukul kaushal',
+    address: 'Badkulji ka Bada',
+    email: 'mukulkaushal666@gmail.com',
+    phone: '7896451235'
+  },
+ 
+];
+
+
+const searchForm = document.getElementById('search-form');
+const searchResults = document.getElementById('search-results');
+
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  
+  
+  const user = users.find((user) => user.name.toLowerCase() === name.toLowerCase());
+  
+
+  if (!user) {
+    searchResults.innerHTML = 'No user found.';
+    return;
+  }
+  
+
+  const userHtml = `
+    <h2>${user.name}</h2>
+    <p>Address: ${user.address}</p>
+    <p>Email: ${user.email}</p>
+    <p>Phone: ${user.phone}</p>
+  `;
+  
+  searchResults.innerHTML = userHtml;
+});
+
+    </script>
+  </body>
+</html>

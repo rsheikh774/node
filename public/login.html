@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      /* CSS for the login and signup forms */
+
+form {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px #ccc;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  padding: 8px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+form p {
+  margin-top: 10px;
+  text-align: center;
+}
+
+form p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+form p a:hover {
+  text-decoration: underline;
+}
+
+
+    </style>
+</head>
+<body>
+    <h3><a id="ss" href="/index">Home</a></h3>
+    <!-- Login form -->
+<form id="login-form">
+    <h2>Login</h2>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password">
+    <button type="submit">Login</button>
+    <p>Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
+  </form>
+  
+  <!-- Signup form -->
+  <form id="signup-form" style="display:none;">
+    <h2>Sign up</h2>
+    <label for="new-username">Username</label>
+    <input type="text" id="new-username" name="new-username">
+    <label for="new-password">Password</label>
+    <input type="password" id="new-password" name="new-password">
+    <button type="submit">Sign up</button>
+    <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+  </form>
+  <script>
+   // Get references to the login and signup forms and links
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const loginLink = document.getElementById('login-link');
+const signupLink = document.getElementById('signup-link');
+
+// Add click event listeners to the login and signup links
+loginLink.addEventListener('click', () => {
+  loginForm.style.display = 'block';
+  signupForm.style.display = 'none';
+});
+
+signupLink.addEventListener('click', () => {
+  loginForm.style.display = 'none';
+  signupForm.style.display = 'block';
+});
+
+// Add submit event listener to the signup form
+signupForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  
+  const username = document.getElementById('new-username').value;
+  const password = document.getElementById('new-password').value;
+  
+  // Check if the user exists in your system
+  if (localStorage.getItem(username) !== null) {
+    alert('User already exists. Please log in.');
+    signupForm.reset();
+    return;
+  }
+  
+  // Add the user to your system
+  localStorage.setItem(username, password);
+  alert('User successfully created. Please log in.');
+  signupForm.style.display = 'none';
+  loginForm.style.display = 'block';
+});
+
+// Add submit event listener to the login form
+loginForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  
+  // Check if the user exists in your system
+  if (localStorage.getItem(username) === null || localStorage.getItem(username) !== password) {
+    alert('User does not exist. Please sign up first.');
+    loginForm.reset();
+    return;
+  }
+  
+  alert('User successfully logged in.');
+  // Add code to redirect the user to the homepage or dashboard
+  window.location.href = '/search';
+});
+
+
+  </script>
+  
+</body>
+</html>
